@@ -18,7 +18,7 @@ namespace DietTrackor
             conn.Open();
 
             string userName; 
-            int gender;
+            char gender;
             int age, height, weight, workOutLevel, goalFatLoss, dietLength;
             int caloriesConsumed, coffeeConsumed, caloriesBurnt;
             double BMR , caloriesMaintenance , caloriesDeficitTarget , recommendedDailyCalories;
@@ -32,8 +32,8 @@ namespace DietTrackor
             Console.WriteLine("Enter your name");
             userName = Console.ReadLine();
 
-            Console.WriteLine("Enter your gender\n -Press 0 for male\n -Press 1 for female");
-            gender = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter your gender\n Press M for male\n Press F for female");
+            gender = Convert.ToChar(Console.ReadLine());
 
 
             Console.WriteLine("Enter your age");
@@ -70,7 +70,7 @@ namespace DietTrackor
 
            //If user already exists we offer these questions
 
-
+            do{
             Console.WriteLine("Enter your calories consumed (kcal)");
             caloriesConsumed = Convert.ToInt32(Console.ReadLine());
 
@@ -84,17 +84,20 @@ namespace DietTrackor
             cmd2.Parameters.AddWithValue("@caloriesConsumed", caloriesConsumed);
             cmd2.Parameters.AddWithValue("@coffeeConsumed", coffeeConsumed);
             cmd2.Parameters.AddWithValue("@caloriesBurnt", caloriesBurnt);
-            cmd.ExecuteNonQuery();
+            cmd2.ExecuteNonQuery();
 
             conn.Close();
             Console.WriteLine("Success!");
+            Console.Write("Do you have more data?");
+            } 
+            while (Console.ReadLine().ToLower() == "y");
 
 
-            if (gender == 0)
+            if (gender == 'M')
             {
                 BMR = (10 * weight) + (6.25 * height) - (5 * age) + 5;
             }
-            else if (gender == 1)
+            else if (gender == 'F')
             {
 
                 BMR = (10 * weight) + (6.25 * height) - (5 * age) - 161;
